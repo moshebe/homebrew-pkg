@@ -5,20 +5,20 @@
 class Gtrace < Formula
   desc ""
   homepage "https://github.com/moshebe/gtrace"
-  version "1.0.5"
+  version "1.0.6"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/moshebe/gtrace/releases/download/v1.0.5/gtrace_Darwin_x86_64.tar.gz"
-      sha256 "b2282a1e389b1ac6d074ffcacaf1c3a803a9c6e2e337cf90b64f5d0629e5becb"
+      url "https://github.com/moshebe/gtrace/releases/download/v1.0.6/gtrace_Darwin_x86_64.tar.gz"
+      sha256 "b072cf5b1745a413603f543a0845bbdd9150e18f25c77900ae50282bcf5e4259"
 
       def install
         bin.install "gtrace"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/moshebe/gtrace/releases/download/v1.0.5/gtrace_Darwin_arm64.tar.gz"
-      sha256 "3bc51592519e87e6b3cdb67f169c06d611aa0376f2b7859d46ab1c3edc1889ef"
+      url "https://github.com/moshebe/gtrace/releases/download/v1.0.6/gtrace_Darwin_arm64.tar.gz"
+      sha256 "f2c4ef72fc6fac64555f324fd25a6a1663aeb9639ff5e2a30d0e11654063d6d2"
 
       def install
         bin.install "gtrace"
@@ -28,15 +28,15 @@ class Gtrace < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/moshebe/gtrace/releases/download/v1.0.5/gtrace_Linux_x86_64.tar.gz"
-      sha256 "c621657c6e51318749b6361fe659c57080abc0b0009483cbe8be14e6de83d881"
+      url "https://github.com/moshebe/gtrace/releases/download/v1.0.6/gtrace_Linux_x86_64.tar.gz"
+      sha256 "3fd814f4c71992a51d4ab2b9807070a0440e5e515e99cbd89dcaddcd27db1f3b"
       def install
         bin.install "gtrace"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/moshebe/gtrace/releases/download/v1.0.5/gtrace_Linux_arm64.tar.gz"
-      sha256 "a9a0d216ce4c8c9876bf053b2bd206016ca1dfca07fdd6fb9b904e2cc27c37dd"
+      url "https://github.com/moshebe/gtrace/releases/download/v1.0.6/gtrace_Linux_arm64.tar.gz"
+      sha256 "87596876aeea8bbf4003d7e70cdcac00ad4921a70e86141ac337cc620a6f2d97"
       def install
         bin.install "gtrace"
       end
