@@ -10,7 +10,7 @@ class Gcpql < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Darwin_x86_64.tar.gz"
-      sha256 "ca2823cf5a60436f1a0bdf00941b0a2b9b7bec57406c1f148447753e532167db"
+      sha256 "9a86f92e5a96c64899eccc942f1225476eec288bd071ac017c9c8d34ae9486bf"
 
       def install
         bin.install "gcpql"
@@ -18,7 +18,7 @@ class Gcpql < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Darwin_arm64.tar.gz"
-      sha256 "37cc30a64fcd39b770dca1207be4d650f4c3dc6e31cb4c1f9d24d628f8c63838"
+      sha256 "1f306e81b90164890d6ffa16245d602a2011972e7ec47d600dc2538d8842e126"
 
       def install
         bin.install "gcpql"
@@ -29,14 +29,14 @@ class Gcpql < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Linux_x86_64.tar.gz"
-      sha256 "2fbcdf7b74f52265d1de40587a883a8fc1c664474071b1d6b82d638b291f9953"
+      sha256 "41c99018bb0de07d109a53e21baeeb72aba759f1e65dbdef8789aa1d091bba67"
       def install
         bin.install "gcpql"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Linux_arm64.tar.gz"
-      sha256 "ed5baa6e16b1e863f9dbc67cff73c92f69c2fc631dff3a3717a8263ddb74616f"
+      sha256 "5e967ab15fa2036965d35770c37ed0b4748af03994507087db8f9b590c90b817"
       def install
         bin.install "gcpql"
       end
