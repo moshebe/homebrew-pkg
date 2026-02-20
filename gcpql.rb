@@ -5,20 +5,20 @@
 class Gcpql < Formula
   desc ""
   homepage "https://github.com/moshebe/gcpql"
-  version "0.0.1"
+  version "0.0.2"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/moshebe/gcpql/releases/download/v0.0.1/gcpql_Darwin_x86_64.tar.gz"
-      sha256 "4485695bed5e3ca5ad07f8f6973b83e1e6cd59dcb7fd3ed292ca1e6a1712b62e"
+      url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Darwin_x86_64.tar.gz"
+      sha256 "ca2823cf5a60436f1a0bdf00941b0a2b9b7bec57406c1f148447753e532167db"
 
       def install
         bin.install "gcpql"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/moshebe/gcpql/releases/download/v0.0.1/gcpql_Darwin_arm64.tar.gz"
-      sha256 "ba49109def823836b5a81e1c8927fb0773958af676eadbada08eb0f87859fbcb"
+      url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Darwin_arm64.tar.gz"
+      sha256 "37cc30a64fcd39b770dca1207be4d650f4c3dc6e31cb4c1f9d24d628f8c63838"
 
       def install
         bin.install "gcpql"
@@ -28,15 +28,15 @@ class Gcpql < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/moshebe/gcpql/releases/download/v0.0.1/gcpql_Linux_x86_64.tar.gz"
-      sha256 "72e81c585f7282036236102fefd9a953dfdb5fe66f4c4380aa1ea1c27dc450f0"
+      url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Linux_x86_64.tar.gz"
+      sha256 "2fbcdf7b74f52265d1de40587a883a8fc1c664474071b1d6b82d638b291f9953"
       def install
         bin.install "gcpql"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/moshebe/gcpql/releases/download/v0.0.1/gcpql_Linux_arm64.tar.gz"
-      sha256 "3e6f28c95a0a74e29c18b255350e0f9cb9bfefa5cf71a48590ba29bfd8cd21b6"
+      url "https://github.com/moshebe/gcpql/releases/download/v0.0.2/gcpql_Linux_arm64.tar.gz"
+      sha256 "ed5baa6e16b1e863f9dbc67cff73c92f69c2fc631dff3a3717a8263ddb74616f"
       def install
         bin.install "gcpql"
       end
