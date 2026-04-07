@@ -11,21 +11,61 @@ class Transcribeer < Formula
 
   def install
     python = Formula["python@3.11"].opt_bin/"python3.11"
+    venv = libexec/"venv"
 
-    # Set up virtualenv in libexec
-    system python, "-m", "venv", libexec
-    pip = libexec/"bin/pip"
-    system pip, "install", "--quiet", "--upgrade", "pip"
-    system pip, "install", "--quiet", ".[gui]"
+    # Create virtualenv inside the Homebrew prefix — brew uninstall cleans it all up
+    system python, "-m", "venv", venv
 
-    # Install pre-built capture binary and codesign for screen recording
-    bin.install "capture-bin"
+    # Install package with all runtime extras
+    system venv/"bin/pip", "install", "--no-cache-dir",
+           ".[gui,resemblyzer,openai,anthropic]"
+
+    # Install pre-built capture binary into libexec and codesign for screen recording
+    (libexec/"bin").mkpath
+    cp "capture-bin", libexec/"bin/capture-bin"
+    chmod 0755, libexec/"bin/capture-bin"
     entitlements = buildpath/"capture/capture.entitlements.plist"
-    system "codesign", "--sign", "-", "--force", "--entitlements", entitlements, bin/"capture-bin" if entitlements.exist?
+    if entitlements.exist?
+      system "codesign", "--force", "--sign", "-",
+             "--entitlements", entitlements, libexec/"bin/capture-bin"
+    else
+      system "codesign", "--force", "--sign", "-", libexec/"bin/capture-bin"
+    end
 
-    # Wrap venv scripts into brew bin
-    (bin/"transcribeer").write_env_script libexec/"bin/transcribeer", {}
-    (bin/"transcribeer-gui").write_env_script libexec/"bin/transcribeer-gui", {}
+    # Write wrapper scripts — transcribeer also bootstraps config on first run
+    capture_bin_path = opt_libexec/"bin/capture-bin"
+
+    (bin/"transcribeer").write <<~SH
+      #!/bin/bash
+      CONFIG="$HOME/.transcribeer/config.toml"
+      if [[ ! -f "$CONFIG" ]]; then
+        mkdir -p "$HOME/.transcribeer/sessions"
+        cat > "$CONFIG" <<TOML
+      [transcription]
+      language = "auto"
+      diarization = "resemblyzer"
+      num_speakers = 0
+
+      [summarization]
+      backend = "ollama"
+      model = "llama3"
+      ollama_host = "http://localhost:11434"
+
+      [paths]
+      sessions_dir = "~/.transcribeer/sessions"
+      capture_bin = "#{capture_bin_path}"
+      TOML
+      fi
+      exec "#{venv}/bin/transcribeer" "$@"
+    SH
+
+    (bin/"transcribeer-gui").write <<~SH
+      #!/bin/bash
+      exec "#{venv}/bin/transcribeer-gui" "$@"
+    SH
+
+    chmod 0755, bin/"transcribeer"
+    chmod 0755, bin/"transcribeer-gui"
   end
 
   service do
@@ -36,14 +76,18 @@ class Transcribeer < Formula
   end
 
   def caveats
+    capture_bin_path = opt_libexec/"bin/capture-bin"
     <<~EOS
       Transcribeer has been installed.
 
-      The menubar app has been started automatically.
       To start on login (auto-restart):
         brew services start transcribeer
 
-      To configure your LLM backend (Ollama/OpenAI/Anthropic) and diarization:
+      A default config will be created at ~/.transcribeer/config.toml on first run,
+      pointing capture-bin to:
+        #{capture_bin_path}
+
+      To change LLM backend (Ollama/OpenAI/Anthropic) or diarization, edit:
         ~/.transcribeer/config.toml
 
       Note: The first transcription will download the Whisper model (~1.5 GB).
