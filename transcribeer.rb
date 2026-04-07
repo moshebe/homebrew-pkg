@@ -24,8 +24,8 @@ class Transcribeer < Formula
     system "codesign", "--sign", "-", "--force", "--entitlements", entitlements, bin/"capture-bin" if entitlements.exist?
 
     # Wrap venv scripts into brew bin
-    bin.write_env_script libexec/"bin/transcribeer", {}
-    bin.write_env_script libexec/"bin/transcribeer-gui", {}
+    (bin/"transcribeer").write_env_script libexec/"bin/transcribeer", {}
+    (bin/"transcribeer-gui").write_env_script libexec/"bin/transcribeer-gui", {}
   end
 
   service do
