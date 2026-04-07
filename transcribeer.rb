@@ -21,7 +21,7 @@ class Transcribeer < Formula
     # Install pre-built capture binary and codesign for screen recording
     bin.install "capture-bin"
     entitlements = buildpath/"capture/capture.entitlements.plist"
-    system "codesign", "--sign", "-", "--entitlements", entitlements, bin/"capture-bin" if entitlements.exist?
+    system "codesign", "--sign", "-", "--force", "--entitlements", entitlements, bin/"capture-bin" if entitlements.exist?
 
     # Wrap venv scripts into brew bin
     bin.write_env_script libexec/"bin/transcribeer", {}
