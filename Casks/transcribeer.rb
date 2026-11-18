@@ -1,6 +1,6 @@
 cask "transcribeer" do
-  version "0.2.0"
-  sha256 "7af13d0139fb5fb6602f030f527fb3316cd65e21a4ef6e6a54bd80271e2072ea"
+  version "0.3.0"
+  sha256 "e8bddaf9beaaf47916e811141b77d75e066a7af1de89ce0186f1cfaf16e3f28c"
 
   url "https://github.com/moshebe/transcribeer/releases/download/v#{version}/Transcribeer-#{version}.dmg"
   name "Transcribeer"
